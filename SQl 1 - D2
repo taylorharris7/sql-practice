@@ -1,0 +1,16 @@
+# calculate special bonus
+SELECT employee_id, IF(employee_id%2 != 0 AND name NOT REGEXP '^M', salary, 0) as bonus FROM Employees ORDER BY  employee_id;
+
+# swap salary
+UPDATE Salary 
+UPDATE Salary 
+SET sex = (case when sex='m' then 'f'
+                ELSE 'm'
+            end);
+
+# delete duplicate emails
+# 1 join the table with itself with Person p1, Person p2
+# 3 delete the entry
+DELETE p1 FROM Person p1, Person p2
+# 2 find the duplicate emails where the id shows it isn't paired with itself
+WHERE p1.email=p2.email AND p1.id>p2.id;
