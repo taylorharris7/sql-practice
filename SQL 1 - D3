@@ -1,0 +1,22 @@
+# fix names in a table
+# SUBSTRING(string, start, length)
+# CONCAT(string1, string2, ...., string_n)
+# UPPER(text) returns text in uppercase
+# sql indexing starts at 1 usually
+select user_id, concat(upper(substring(name, 1, 1)), lower(substring(name, 2))) as name from Users order by user_id;
+
+# group sold products by the date
+select sell_date, count(distinct product) as num_sold, 
+# concatinates the products. Grabs each distinct product, puts them in alphabetical order, separates with a ,
+# lexicographically is alphabetically
+group_concat(distinct product order by product asc separator ',') as products
+from Activities
+# group by the date since we wanted to find what products were sold on what date
+group by sell_date 
+# make it in chronological order
+order by sell_date;
+
+# patients with a condition
+# regex https://dataschool.com/how-to-teach-people-sql/how-regex-works-in-sql/
+select * from Patients
+where conditions like 'DIAB1%' or conditions like '% DIAB1%';
