@@ -1,0 +1,51 @@
+# employees with missing information - doesn't allow full outer joins
+select Employees.employee_id 
+from Employees
+left join salaries
+on employees.employee_id = salaries.employee_id
+where employees.name is null or salaries.salary is null
+
+union
+
+select salaries.employee_id 
+from Employees
+right join salaries
+on employees.employee_id = salaries.employee_id
+where employees.name is null or salaries.salary is null
+
+order by employee_id;
+
+
+# rearrange product tables
+select product_id, 'store1' as store, store1 as price
+from products
+where store1 is not null
+
+union
+
+select product_id, 'store2' as store, store2 as price
+from products
+where store2 is not null
+
+union
+
+select product_id, 'store3' as store, store3 as price
+from products
+where store3 is not null; 
+
+# tree node
+select id, 
+case
+    # only one root so look for the one p_id that's null
+    when tree.id = (select subtree.id from Tree subtree where subtree.p_id is null) then 'Root'
+    # look to see if the id is in the p_id column, if it is then it is an inner node
+    when tree.id in (select subtree.p_id from Tree subtree) then 'Inner'
+    # everything else is a leaf
+    else 'Leaf'
+end as type
+from tree;
+
+# second highest salary
+select max(salary) as SecondHighestSalary
+from Employee
+where salary not in (select max(salary) from employee)
