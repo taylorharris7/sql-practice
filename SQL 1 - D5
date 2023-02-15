@@ -1,0 +1,17 @@
+# combine two tables
+select person.firstName, person.lastName, city, state
+from person
+left join address
+on person.personid = address.personid
+
+# customer who visited but did not many any transactions
+select Visits.customer_id, count(visits.visit_id) as count_no_trans
+from Visits
+where Visits.visit_id not in (select Transactions.visit_id from transactions)
+group by Visits.customer_id
+
+# article views 1
+select distinct author_id as id
+from views
+where author_id = viewer_id
+order by 1
