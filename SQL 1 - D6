@@ -1,0 +1,10 @@
+# Rising temperature
+select weather.id as 'Id'
+from weather
+# datediff returns the difference between two dates (datediff = 1 means difference of a day)
+join weather weatherB on datediff(weather.recordDate, weatherB.recordDate) = 1 AND weather.Temperature > weatherB.Temperature
+
+# sales person
+select SalesPerson.name
+from SalesPerson
+where salesperson.sales_id not in (select sales_id from orders left join company on company.com_id = orders.com_id where company.name = 'RED')
