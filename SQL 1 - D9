@@ -1,0 +1,24 @@
+# capital gain/loss
+select stock_name, 
+sum(case
+    when operation = 'Buy' then -price
+    when operation = 'Sell' then price
+end) as capital_gain_loss
+from stocks
+group by stock_name
+
+# top travellers
+# IFNULL(expression, alt_value)
+select users.name, sum(ifnull(rides.distance, 0)) as travelled_distance
+from users
+left join rides
+on users.id = rides.user_id
+group by users.id
+order by travelled_distance desc, users.name
+
+# market analysis
+select users.user_id as buyer_id, users.join_date, count(orders.order_date) as orders_in_2019
+from users
+left join orders
+on orders.buyer_id = users.user_id and year(order_date) = 2019
+group by users.user_id
