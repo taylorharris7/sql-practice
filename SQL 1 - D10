@@ -1,0 +1,31 @@
+# duplicate emails
+select email as Email
+from person
+group by email
+having count(email) > 1
+
+# actors and directors who cooperated at least 3 times
+select actor_id, director_id
+from ActorDirector
+group by actor_id, director_id
+having count(timestamp) > 2
+
+# bank account summary II
+select users.name as NAME, sum(transactions.amount) as BALANCE
+from users
+left join transactions
+on users.account = transactions.account
+group by users.name
+having balance > 10000
+
+# sales analysis III
+select product_id, product_name
+from product
+where product_id not in 
+    (select product.product_id 
+    from product 
+    left join sales
+    on product.product_id = sales.product_id
+    where sales.sale_date < date('2019-01-01')
+        or sales.sale_date > date('2019-03-31')
+        or sales.seller_id is null)
