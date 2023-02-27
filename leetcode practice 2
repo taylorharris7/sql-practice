@@ -1,0 +1,19 @@
+# employees Earning More Than Their Managers
+select e2.name as Employee
+from Employee e1
+join Employee e2
+    on e2.managerid = e1.id
+where e1.salary < e2.salary
+
+# department highest salary
+select department.name as Department, employee.name as Employee, employee.salary as Salary
+from employee
+left join department
+    on employee.departmentid = department.id
+where (employee.departmentid, employee.salary) in (select distinct departmentid, max(salary) from employee group by departmentid)
+
+# classes more than 5 students
+select class
+from courses
+group by class
+having count(class) >= 5
