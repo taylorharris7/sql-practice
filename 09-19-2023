@@ -1,0 +1,20 @@
+# Leetcode SQL 50
+# September 19 2023
+
+# Product Sales Analysis I
+elect Product.product_name, Sales.year, Sales.price
+from Sales join Product
+on Sales.product_id = Product.product_id
+
+# Customers who visitied but didn't make a transaction
+select distinct customer_id, count(Visits.visit_id) as count_no_trans
+from Visits left join Transactions 
+on Visits.visit_id = Transactions.visit_id
+where transaction_id is null
+group by customer_id
+
+# Rising Temperature
+select w2.id as Id
+from Weather w1 join Weather w2
+on datediff(w1.recordDate, w2.recordDate) = -1
+where w1.temperature < w2.temperature
